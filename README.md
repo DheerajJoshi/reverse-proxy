@@ -405,9 +405,9 @@ $ minikube delete
 
 ### Limitations
 
-- [ ] abc
-- [x]
+- [ ]
+- [*]
 
 ## Improvements
 
-- [ ] abc
+- [ ]
