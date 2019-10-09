@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: reverse-proxy-service
+  labels:
+    run: reverse-proxy-app
+spec:
+  selector:
+    run: reverse-proxy-app
+  type: NodePort
+  ports:
+  - nodePort: {{ .Values.nodeport }}
+    port: {{ .Values.port }}
+    targetPort: {{ .Values.port }}

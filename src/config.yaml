@@ -1,0 +1,18 @@
+proxy:
+  listen:
+    address: 127.0.0.1
+    port: '8080'
+  services:
+  - domain: my-service.mycompany.com
+    hosts:
+    - address: http://www.google.com
+      port: ''
+    - address: http://www.bing.com
+      port: ''
+    - address: http://www.stackoverflow.com
+      port: ''
+    - address: http://www.kubernetes.io
+      port: ''
+    - address: http://www.docker.com
+      port: ''
+    name: my-service

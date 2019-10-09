@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Helm Chart for deploying reverse-proxy flask app on K8s
+name: chart_reverse_proxy
+version: 1.0.0

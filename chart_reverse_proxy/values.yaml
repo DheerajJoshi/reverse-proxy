@@ -1,0 +1,4 @@
+replicas: 1
+port: 8080
+nodeport: 30653
+image: dheerajjoshi/reverseproxy:randomalgo
