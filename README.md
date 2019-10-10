@@ -3,7 +3,7 @@
 
 > Reverse proxy server: A reverse proxy server is a type of proxy server that typically sits behind the firewall in a private network and directs client requests to the appropriate backend server. A reverse proxy provides an additional level of abstraction and control to ensure the smooth flow of network traffic between clients and servers.
 
-<img src="https://github.com/DheerajJoshi/extra-stuff/blob/master/reverse-proxy/images/reverse-proxy.png" width="100%"/>
+<img src="https://github.com/DheerajJoshi/reverse-proxy/blob/master/images/reverse-proxy.png" width="100%"/>
 
 References: <a href="https://www.nginx.com/resources/glossary/reverse-proxy-server/">Reverse Proxy</a>
 
@@ -436,8 +436,8 @@ $ minikube delete
 
   SLI = 100 - (Total number of successful request transferred, network transfer rate)/ (Total number of incoming request, network receiving rate)
 
-  <img src="https://github.com/DheerajJoshi/extra-stuff/blob/master/reverse-proxy/images/sli-network.png" width="100%"/>
-  <img src="https://github.com/DheerajJoshi/extra-stuff/blob/master/reverse-proxy/images/sli-network1.png" width="100%"/>
+  <img src="https://github.com/DheerajJoshi/reverse-proxy/blob/master/images/sli-network.png" width="100%"/>
+  <img src="https://github.com/DheerajJoshi/reverse-proxy/blob/master/images/sli-network1.png" width="100%"/>
 
 
 References: <a href="https://cloud.google.com/blog/products/gcp/sre-fundamentals-slis-slas-and-slos">SLI Calculation</a>
