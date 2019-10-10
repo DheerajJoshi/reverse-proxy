@@ -24,7 +24,7 @@ spec:
           limits:
             cpu: "1"
           requests:
-            cpu: 300m
+            cpu: 800m
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       terminationGracePeriodSeconds: 5
