@@ -8,6 +8,13 @@
 References: <a href="https://www.nginx.com/resources/glossary/reverse-proxy-server/">Reverse Proxy</a>
 
 ## Design and implementation
+Implement a reverse-proxy to which can redirect the traffic to backend machines(for testing I am redirecting it to websites so I can check the basic cache behaviour and random redirection of traffic from reverse-proxy)
+
+Basically, in implementation; all traffic will come to kubernetes service object(NodePort to check from outside of cluster). I can even use the service type load balancer but its tough to test that with minikube. If anyone want to implement same thing in cloud.
+
+Scaling: Using horizontal pod autoscaler to scale when cpu targetCPUUtilizationPercentage is more then 300m(millicores) with maximum of 1 cpu usage. It can scale upto number of resources allocated to master control-plane in my implementation while in production, it should use Cluster AutoScaler so if there is a heavy load(here is cpu and network bandwidth) then new worker nodes will spin and new pods will schedule there according to requirements.
+
+Failure: In current implementation this will fail when it utilised all resources from master control plane(because its working on minikube) and there is no recovery for it. Need to delete minikube cluster and recreate it or reduce the load testing
 
 ### Prerequisite
 
@@ -405,9 +412,32 @@ $ minikube delete
 
 ### Limitations
 
-- [ ]
-- [*]
+- Reverse proxy currently only support with a load- balancing strategy that randomly forwards the requests.
+- Better creation of config file. Currently, it is created by config.py python file. In future can use values.yaml file in helm-chart to update it more fast.
+- Currently, adding new backend target IP's will take multiple steps, like update in config.yaml(manually) and then create docker image, then tag it and push to docker registry and then run helm upgrade revision.
+- Running on minikube so limited resources to verify.
+
 
 ## Improvements
 
-- [ ]
+- Reverse proxy code can update to support different load balancing strategy like RoundRobin, LeastCount, Caching, compressor server. We can pass parameter in config.yaml file to use which algorithm for reverse proxy
+
+## SLI Calculation for reverse-proxy server
+
+- SLI(the frequency of successful probes of our system / total frequency) can be calculated on various parameters such as Request Error Ratio,
+  Request per second, 50th Percentile Request Latency, 90th Percentile Request Latency, 99th Percentile Request Latency, Throughput, etc..
+
+- Will define a benchmark that this reverse-proxy server will provide uptime SLO (serving all request successfully to backend host) with SLO
+  of `90% uptime` with minimum 20% of cpu usage(targetCPUUtilizationPercentage) with 800m(millicores) usage per pods
+
+- SLI is calculated by simple formula which is SLI = (total number of success full request redirected in one minute) / (Total number of
+  input requests or query per minute)
+  Here in reverse proxy server I will calculate SLI from `Network-Usage`
+
+  SLI = 100 - (Total number of successful request transferred, network transfer rate)/ (Total number of incoming request, network receiving rate)
+
+  <img src="https://github.com/DheerajJoshi/extra-stuff/blob/master/reverse-proxy/images/sli-network.png" width="100%"/>
+  <img src="https://github.com/DheerajJoshi/extra-stuff/blob/master/reverse-proxy/images/sli-network1.png" width="100%"/>
+
+
+References: <a href="https://cloud.google.com/blog/products/gcp/sre-fundamentals-slis-slas-and-slos">SLI Calculation</a>
