@@ -95,6 +95,40 @@ Generate default configuration file for testing
 $ python3 config.py --sub-domain my-service --ingress-port 8080
 ```
 
+To test app locally, then use below commands for usage
+```
+$ python3 app.py --help
+
+usage: app.py [-h] [--config-file CONFIG_FILE]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --config-file CONFIG_FILE
+                        yaml config file
+```
+
+Run app locally by giving `config.yaml` as argument
+```
+$ python3 app.py --config config.yaml
+
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 116-825-433
+```
+
+Check from browser or using curl
+```
+$ curl http://localhost:8080/api/v2/_health_check
+
+Health-check reverse-proxy is working!!!!!%
+```
+
 ### Run reverse-proxy server in containers
 
 ```
